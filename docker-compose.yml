@@ -1,0 +1,36 @@
+version: '3.7'  # Specify the version of Docker Compose
+
+services:
+  postgres:
+    container_name: postgres-sql-bsn
+    image: postgres
+    environment:
+      POSTGRES_USER: himanshu
+      POSTGRES_PASSWORD: cavisson
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: book_social_network
+    volumes:
+      - postgres:/var/lib/postgresql/data  # Corrected volume path
+    ports:
+      - 5435:5432
+    networks:
+      - spring-demo
+    restart: unless-stopped
+
+  maildev:
+    container_name: mail-dev-bsn  # Changed the service name to 'maildev' to avoid hyphen issues
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+    networks:
+      - spring-demo
+
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
+
