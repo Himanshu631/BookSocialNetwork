@@ -1,5 +1,7 @@
 package com.gamtech.booknetwork.user;
 
+import com.gamtech.booknetwork.book.Book;
+import com.gamtech.booknetwork.history.BookTransactionHistory;
 import com.gamtech.booknetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -47,6 +49,11 @@ public class User implements UserDetails, Principal {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
