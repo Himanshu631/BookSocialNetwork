@@ -107,7 +107,7 @@ public class AuthenticationService {
             sendValidationEmail(savedToken.getUser());
             throw new RuntimeException("Activation token has expired");
         }
-        var user = userRepository.findById(savedToken.getUser().getId()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        var user = userRepository.findById(savedToken.getUser().getUserId()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
         user.setEnabled(true);
         userRepository.save(user);
         savedToken.setValidatedAt(LocalDateTime.now());

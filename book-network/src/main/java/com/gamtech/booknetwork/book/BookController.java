@@ -10,8 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
@@ -68,7 +66,7 @@ public class BookController {
         return ResponseEntity.ok(bookService.updateShareableStatus(bookId,connectedUser));
     }
 
-    @PatchMapping("/shareable/{bookId}")
+    @PatchMapping("/archived/{bookId}")
     public ResponseEntity<Integer> updateArchiveStatus(
             @PathVariable Integer bookId,
             Authentication connectedUser){

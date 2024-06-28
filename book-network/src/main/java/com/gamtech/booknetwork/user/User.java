@@ -30,7 +30,7 @@ public class User implements UserDetails, Principal {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Integer userId;
     private String firstname;
     private String lastname;
     private LocalDate dob;

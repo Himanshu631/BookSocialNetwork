@@ -31,7 +31,7 @@ public class FeedbackService {
             throw new OpearationNotPermittedException("The requested book cannot be borrowed");
         }
         User user = ((User) connectedUser.getPrincipal());
-        if (!Objects.equals(book.getOwner().getId(),user.getId())){
+        if (!Objects.equals(book.getOwner().getUserId(),user.getUserId())){
             throw new OpearationNotPermittedException("You cannot approve return of this book, as you are not the owner");
         }
 
@@ -45,7 +45,7 @@ public class FeedbackService {
         Page<Feedback> feedbacks = feedbackRepository.findAllByBookId(bookId,pageable);
 
         List<FeedbackResponse> feedbackResponses = feedbacks.stream()
-                .map(f -> feedbackMapper.toFeedBackResponse(f,user.getId()))
+                .map(f -> feedbackMapper.toFeedBackResponse(f,user.getUserId()))
                 .toList();
         return new PageResponse<>(
                 feedbackResponses, feedbacks.getNumber(), feedbacks.getSize(), feedbacks.getTotalElements(), feedbacks.getTotalPages(), feedbacks.isFirst(), feedbacks.isLast()
